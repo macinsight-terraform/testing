@@ -1,0 +1,9 @@
+os_password = "YourOpenStackPasswordHere"
+private_ssh_key = <<EOT
+-----BEGIN OPENSSH PRIVATE KEY-----
+Paste your SSH Private Key here for access to internal nodes
+-----END OPENSSH PRIVATE KEY-----
+EOT
+cf_zone_id = "Your Cloudflare Zone ID"
+cf_api_token = "Your Cloudflare API token"
+cf_domain = "Your domain, fi you have one."
