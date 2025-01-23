@@ -3,12 +3,11 @@
 # Set default user
 users:
   - name: root
-    groups: sudo,root
+    groups: sudo, root
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     shell: /bin/bash
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKYXiwRMP0Z9DS8eix/a7EclAkGwlxagNzfE0bjLElXE hergemoeller@b1-systems.de
-
 
 # Update and install packages
 package_update: true
@@ -20,18 +19,22 @@ packages:
   - zsh
   - python3
   - neovim
+
+# Configure SSH
+ssh_pwauth: false
+disable_root: false
+
+# Ensure root login is allowed via SSH
+runcmd:
+  - sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+  - sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - systemctl restart sshd
+
 # Write a custom file
 write_files:
   - path: /etc/motd
     content: |
       Welcome to your custom instance!
-# Run commands on first boot
-runcmd:
-  - echo "Setting up custom configurations..."
-# Configure SSH
-ssh_pwauth: false
-disable_root: false
 
 # Final message
 final_message: "The system is ready. Login with your configured user."
-

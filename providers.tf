@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "~> 2.35.1"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.8.0"
+    }
   }
 }
 
@@ -27,3 +31,12 @@ provider "openstack" {
 provider "cloudflare" {
   api_token = var.cf_api_token
 }
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config" # Adjust the path if your kubeconfig is elsewhere
+  }
+}
+
+provider "null" {}
+provider "local" {}
