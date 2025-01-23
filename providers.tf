@@ -16,7 +16,3 @@ provider "openstack" {
   project_domain_id  = "b2341addab75466ab4c0fefb4fd07f6a"
   region             = "RegionA"
 }
-variable "os_password" {
-  description = "Openstack password"
-  type = string
-}
