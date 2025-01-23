@@ -27,8 +27,12 @@ write_files:
       Welcome to your custom instance!
 # Run commands on first boot
 runcmd:
-  - curl -sfL https://get.k3s.io | sh -
-
+  - echo "Setting up custom configurations..."
+  - curl -fsSL https://get.docker.com | sh
+  - systemctl enable docker.service
+  - systemctl start docker.service
+  - usermod -aG docker jh
+  - curl -sSL https://raw.githubusercontent.com/mbecker20/komodo/main/scripts/setup-periphery.py | python3
 # Configure SSH
 ssh_pwauth: false
 disable_root: true
