@@ -1,0 +1,38 @@
+#cloud-config
+
+# Set default user
+users:
+  - name: jh
+    groups: sudo
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKYXiwRMP0Z9DS8eix/a7EclAkGwlxagNzfE0bjLElXE hergemoeller@b1-systems.de
+
+
+# Update and install packages
+package_update: true
+package_upgrade: true
+packages:
+  - git
+  - curl
+  - htop
+  - zsh
+  - python3
+  - neovim
+# Write a custom file
+write_files:
+  - path: /etc/motd
+    content: |
+      Welcome to your custom instance!
+# Run commands on first boot
+runcmd:
+  - curl -sfL https://get.k3s.io | sh -
+
+# Configure SSH
+ssh_pwauth: false
+disable_root: true
+
+# Final message
+final_message: "The system is ready. Login with your configured user."
+
